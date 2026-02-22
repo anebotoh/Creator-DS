@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Check } from 'lucide-react';
 
 const colorSystem = {
@@ -169,7 +169,7 @@ function Section({ title, children, theme }) {
   );
 }
 
-export default function App() {
+export default function OutputDesignSystem() {
   const [activeTab, setActiveTab] = useState('brand');
   const [darkMode, setDarkMode] = useState(true);
   const tabs = ['brand', 'saturated', 'alpha', 'greys', 'typography'];
