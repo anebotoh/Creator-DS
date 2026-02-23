@@ -11,15 +11,13 @@
   <link href="https://fonts.cdnfonts.com/css/pilat-extended" rel="stylesheet">
   <style>
     * { font-family: 'Pilat Extended', 'Pilat', system-ui, sans-serif; }
+    body { background-color: #0D0E0F; }
   </style>
 </head>
 <body>
   <div id="root"></div>
   <script type="text/babel">
     const { useState } = React;
-    const Check = ({ size = 24, className = "" }) => (
-      <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="20 6 9 17 4 12"></polyline></svg>
-    );
 
     const colorSystem = {
       brand: {
@@ -190,25 +188,9 @@
       return (r * 299 + g * 587 + b * 114) / 1000 > 128;
     };
 
-    function Section({ title, children, theme }) {
-      return (
-        <section className="mb-16">
-          <h2 className={`text-3xl font-bold tracking-tight mb-8 ${theme?.text || 'text-white'}`}>{title}</h2>
-          {children}
-        </section>
-      );
-    }
-
     function App() {
       const [activeTab, setActiveTab] = useState('brand');
       const [darkMode, setDarkMode] = useState(true);
-      const tabs = [
-        { id: 'brand', label: 'Brand' },
-        { id: 'saturated', label: 'Saturated' },
-        { id: 'alpha', label: 'Tints' },
-        { id: 'greys', label: 'Greys' },
-        { id: 'typography', label: 'Typography' },
-      ];
 
       const theme = {
         bg: darkMode ? '#0D0E0F' : '#F1E7D1',
@@ -222,32 +204,27 @@
       return (
         <div className={`min-h-screen ${theme.text}`} style={{ backgroundColor: theme.bg }}>
           <header className="sticky top-0 z-50" style={{ backgroundColor: theme.bg }}>
-            <div className="max-w-7xl mx-auto px-8 py-5">
-              <div className="flex items-center justify-between">
-                <svg onClick={() => setActiveTab('brand')} className="cursor-pointer hover:opacity-80 transition-opacity" width="140" height="28" viewBox="0 0 140 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <text x="0" y="22" style={{ fontFamily: 'Pilat Extended, Pilat, system-ui, sans-serif', fontSize: '26px', fontWeight: 900, letterSpacing: '-0.5px' }} fill={darkMode ? '#FFFFFF' : '#000000'}>OUTPUT</text>
-                </svg>
-                <nav className="flex items-center gap-8">
-                  {[
-                    { id: 'brand', label: 'Brand Colors' },
-                    { id: 'saturated', label: 'Creator Colors' },
-                    { id: 'greys', label: 'Greys' },
-                    { id: 'alpha', label: 'Alpha' },
-                    { id: 'typography', label: 'Typography' },
-                  ].map(t => (
-                    <button key={t.id} onClick={() => setActiveTab(t.id)}
-                      className={`text-sm font-bold transition-all ${activeTab === t.id ? (darkMode ? 'text-white' : 'text-black') : (darkMode ? 'text-white/40 hover:text-white' : 'text-black/40 hover:text-black')}`}>
-                      {t.label}
-                    </button>
-                  ))}
-                </nav>
-                <div className="flex items-center gap-3">
-                  <span className={`text-xs font-medium ${theme.textMuted}`}>Light</span>
-                  <button onClick={() => setDarkMode(!darkMode)} className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${darkMode ? 'bg-white/10' : 'bg-black/10'}`}>
-                    <div className="absolute top-1 w-4 h-4 rounded-full transition-all duration-300" style={{ backgroundColor: '#E5FF00', left: darkMode ? '28px' : '4px' }} />
-                  </button>
-                  <span className={`text-xs font-medium ${theme.textMuted}`}>Dark</span>
-                </div>
+            <div className="max-w-7xl mx-auto px-8 py-5 flex items-center justify-between">
+              <svg onClick={() => setActiveTab('brand')} className="cursor-pointer hover:opacity-80 transition-opacity" width="140" height="28" viewBox="0 0 140 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="22" style={{ fontFamily: 'Pilat Extended, Pilat, system-ui, sans-serif', fontSize: '26px', fontWeight: 900, letterSpacing: '-0.5px' }} fill={darkMode ? '#FFFFFF' : '#000000'}>OUTPUT</text>
+              </svg>
+              <nav className="flex items-center gap-8">
+                {[
+                  { id: 'brand', label: 'Brand Colors' },
+                  { id: 'saturated', label: 'Creator Colors' },
+                  { id: 'greys', label: 'Greys' },
+                  { id: 'alpha', label: 'Tints' },
+                  { id: 'typography', label: 'Typography' },
+                ].map(t => (
+                  <button key={t.id} onClick={() => setActiveTab(t.id)} className={`text-sm font-bold transition-all ${activeTab === t.id ? (darkMode ? 'text-white' : 'text-black') : (darkMode ? 'text-white/40 hover:text-white' : 'text-black/40 hover:text-black')}`}>{t.label}</button>
+                ))}
+              </nav>
+              <div className="flex items-center gap-3">
+                <span className={`text-xs font-medium ${theme.textMuted}`}>Light</span>
+                <button onClick={() => setDarkMode(!darkMode)} className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${darkMode ? 'bg-white/10' : 'bg-black/10'}`}>
+                  <div className="absolute top-1 w-4 h-4 rounded-full transition-all duration-300" style={{ backgroundColor: '#E5FF00', left: darkMode ? '28px' : '4px' }} />
+                </button>
+                <span className={`text-xs font-medium ${theme.textMuted}`}>Dark</span>
               </div>
             </div>
           </header>
@@ -255,69 +232,54 @@
           <main className="max-w-7xl mx-auto px-8 py-12">
             {activeTab === 'brand' && (
               <>
-                <div className="mb-12">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    <div>
-                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Output Neon</h4>
-                      <button onClick={() => navigator.clipboard.writeText(colorSystem.brand.creator.hex)}
-                        className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
-                        style={{ backgroundColor: colorSystem.brand.creator.hex }}>
-                        <span className="text-base font-bold text-black/80">{colorSystem.brand.creator.name}</span>
-                        <span className="text-sm font-mono text-black/50">{colorSystem.brand.creator.hex}</span>
-                      </button>
-                    </div>
-                    <div>
-                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Gradients</h4>
-                      <div className="space-y-2">
-                        {colorSystem.brand.gradients.map((g, i) => (
-                          <div key={i} className="w-full h-20 rounded-2xl flex items-center justify-between px-5"
-                            style={{ background: `linear-gradient(90deg, ${g.colors[0]}, ${g.colors[1]})` }}>
-                            <span className="text-base font-bold text-black/80">{g.name}</span>
-                            <span className="text-base font-mono text-black/50">{g.colors.join(' → ')}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                  <div>
+                    <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Output Neon</h4>
+                    <button onClick={() => navigator.clipboard.writeText('#E5FF00')} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform" style={{ backgroundColor: '#E5FF00' }}>
+                      <span className="text-base font-bold text-black/80">Output Neon</span>
+                      <span className="text-sm font-mono text-black/50">#E5FF00</span>
+                    </button>
                   </div>
-                  <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Brand Palette</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 mb-8">
-                    {colorSystem.brand.output2026.map((c, i) => (
-                      <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)}
-                        className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
-                        style={{ backgroundColor: c.hex }}>
-                        <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
-                        <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
-                      </button>
+                  <div>
+                    <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Gradients</h4>
+                    {colorSystem.brand.gradients.map((g, i) => (
+                      <div key={i} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 mb-2" style={{ background: `linear-gradient(90deg, ${g.colors[0]}, ${g.colors[1]})` }}>
+                        <span className="text-base font-bold text-black/80">{g.name}</span>
+                        <span className="text-base font-mono text-black/50">{g.colors.join(' → ')}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
-                <div className="mb-12">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Shades (darker)</h4>
-                      <div className="space-y-2">
-                        {colorSystem.creatorNeon.shades.map((c, i) => (
-                          <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)}
-                            className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
-                            style={{ backgroundColor: c.hex }}>
-                            <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
-                            <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
-                          </button>
-                        ))}
-                      </div>
+                <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Brand Palette</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 mb-12">
+                  {colorSystem.brand.output2026.map((c, i) => (
+                    <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform" style={{ backgroundColor: c.hex }}>
+                      <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
+                      <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
+                    </button>
+                  ))}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Shades</h4>
+                    <div className="space-y-2">
+                      {colorSystem.creatorNeon.shades.map((c, i) => (
+                        <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform" style={{ backgroundColor: c.hex }}>
+                          <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
+                          <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
+                        </button>
+                      ))}
                     </div>
-                    <div>
-                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Tints (lighter)</h4>
-                      <div className="space-y-2">
-                        {colorSystem.creatorNeon.tints.map((c, i) => (
-                          <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)}
-                            className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
-                            style={{ backgroundColor: c.hex }}>
-                            <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
-                            <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
-                          </button>
-                        ))}
-                      </div>
+                  </div>
+                  <div>
+                    <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Tints</h4>
+                    <div className="space-y-2">
+                      {colorSystem.creatorNeon.tints.map((c, i) => (
+                        <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform" style={{ backgroundColor: c.hex }}>
+                          <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
+                          <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
+                        </button>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -325,126 +287,99 @@
             )}
 
             {activeTab === 'saturated' && (
-              <div>
-                <p className={`${theme.textMuted} text-sm mb-8`}>Full color scales from light (0) to dark (90). Click any swatch to copy.</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {Object.entries(colorSystem.saturated).map(([name, colors]) => (
-                    <div key={name}>
-                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4 capitalize`}>{name.replace(/([A-Z])/g, ' $1')}</h4>
-                      <div className="space-y-2">
-                        {colors.map((c, i) => (
-                          <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)}
-                            className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
-                            style={{ backgroundColor: c.hex }}>
-                            <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
-                            <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
-                          </button>
-                        ))}
-                      </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {Object.entries(colorSystem.saturated).map(([name, colors]) => (
+                  <div key={name}>
+                    <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4 capitalize`}>{name.replace(/([A-Z])/g, ' $1')}</h4>
+                    <div className="space-y-2">
+                      {colors.map((c, i) => (
+                        <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform" style={{ backgroundColor: c.hex }}>
+                          <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
+                          <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
+                        </button>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'alpha' && (
-              <div>
-                <p className={`${theme.textMuted} text-sm mb-8`}>Colors with transparency from 100% to 10% opacity.</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {Object.entries(colorSystem.saturated).map(([name, colors]) => (
-                    <div key={name}>
-                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4 capitalize`}>{name.replace(/([A-Z])/g, ' $1')}</h4>
-                      <div className="space-y-2">
-                        {[100, 90, 80, 70, 60, 50, 40, 30, 20, 10].map((opacity, i) => (
-                          <button key={i} onClick={() => navigator.clipboard.writeText(`${colors[0].hex}${Math.round(opacity * 2.55).toString(16).padStart(2, '0')}`)}
-                            className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
-                            style={{ backgroundColor: colors[0].hex, opacity: opacity / 100 }}>
-                            <span className={`text-base font-bold ${isLight(colors[0].hex) ? 'text-black/80' : 'text-white/80'}`}>{name.charAt(0).toUpperCase() + name.slice(1)} {opacity}%</span>
-                            <span className={`text-base font-mono ${isLight(colors[0].hex) ? 'text-black/50' : 'text-white/50'}`}>{opacity}%</span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             )}
 
             {activeTab === 'greys' && (
               <>
-                <div className="mb-12">
-                  <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Gray Scale</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {colorSystem.greys.map((c, i) => (
-                      <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)}
-                        className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
-                        style={{ backgroundColor: c.hex }}>
-                        <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
-                        <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
-                      </button>
-                    ))}
-                  </div>
+                <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Gray Scale</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-12">
+                  {colorSystem.greys.map((c, i) => (
+                    <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform" style={{ backgroundColor: c.hex }}>
+                      <span className={`text-base font-bold ${isLight(c.hex) ? 'text-black/80' : 'text-white/80'}`}>{c.name}</span>
+                      <span className={`text-base font-mono ${isLight(c.hex) ? 'text-black/50' : 'text-white/50'}`}>{c.hex}</span>
+                    </button>
+                  ))}
                 </div>
-                <div className="mb-12">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Black Tints</h4>
-                      <div className="space-y-2">
-                        {colorSystem.blackTints.map((t, i) => (
-                          <button key={i} onClick={() => navigator.clipboard.writeText(`rgba(0,0,0,${t.opacity/100})`)}
-                            className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
-                            style={{ backgroundColor: `rgba(0,0,0,${t.opacity/100})`, border: '1px solid rgba(128,128,128,0.1)' }}>
-                            <span className="text-base font-bold text-white/80">{t.name}</span>
-                            <span className="text-base font-mono text-white/50">{t.opacity}%</span>
-                          </button>
-                        ))}
-                      </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Black Tints</h4>
+                    <div className="space-y-2">
+                      {colorSystem.blackTints.map((t, i) => (
+                        <button key={i} onClick={() => navigator.clipboard.writeText(`rgba(0,0,0,${t.opacity/100})`)} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform" style={{ backgroundColor: `rgba(0,0,0,${t.opacity/100})`, border: '1px solid rgba(128,128,128,0.1)' }}>
+                          <span className="text-base font-bold text-white/80">{t.name}</span>
+                          <span className="text-base font-mono text-white/50">{t.opacity}%</span>
+                        </button>
+                      ))}
                     </div>
-                    <div>
-                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>White Tints</h4>
-                      <div className="space-y-2">
-                        {colorSystem.whiteTints.map((t, i) => (
-                          <button key={i} onClick={() => navigator.clipboard.writeText(`rgba(255,255,255,${t.opacity/100})`)}
-                            className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
-                            style={{ backgroundColor: `rgba(255,255,255,${t.opacity/100})`, border: '1px solid rgba(128,128,128,0.1)' }}>
-                            <span className={`text-base font-bold ${t.opacity > 40 ? 'text-black/80' : 'text-white/80'}`}>{t.name}</span>
-                            <span className={`text-base font-mono ${t.opacity > 40 ? 'text-black/50' : 'text-white/50'}`}>{t.opacity}%</span>
-                          </button>
-                        ))}
-                      </div>
+                  </div>
+                  <div>
+                    <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>White Tints</h4>
+                    <div className="space-y-2">
+                      {colorSystem.whiteTints.map((t, i) => (
+                        <button key={i} onClick={() => navigator.clipboard.writeText(`rgba(255,255,255,${t.opacity/100})`)} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform" style={{ backgroundColor: `rgba(255,255,255,${t.opacity/100})`, border: '1px solid rgba(128,128,128,0.1)' }}>
+                          <span className={`text-base font-bold ${t.opacity > 40 ? 'text-black/80' : 'text-white/80'}`}>{t.name}</span>
+                          <span className={`text-base font-mono ${t.opacity > 40 ? 'text-black/50' : 'text-white/50'}`}>{t.opacity}%</span>
+                        </button>
+                      ))}
                     </div>
                   </div>
                 </div>
               </>
             )}
 
+            {activeTab === 'alpha' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {Object.entries(colorSystem.saturated).map(([name, colors]) => (
+                  <div key={name}>
+                    <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4 capitalize`}>{name.replace(/([A-Z])/g, ' $1')}</h4>
+                    <div className="space-y-2">
+                      {[100, 90, 80, 70, 60, 50, 40, 30, 20, 10].map((opacity, i) => (
+                        <button key={i} onClick={() => navigator.clipboard.writeText(`${colors[0].hex}${Math.round(opacity * 2.55).toString(16).padStart(2, '0')}`)} className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform" style={{ backgroundColor: colors[0].hex, opacity: opacity / 100 }}>
+                          <span className={`text-base font-bold ${isLight(colors[0].hex) ? 'text-black/80' : 'text-white/80'}`}>{name.charAt(0).toUpperCase() + name.slice(1)} {opacity}%</span>
+                          <span className={`text-base font-mono ${isLight(colors[0].hex) ? 'text-black/50' : 'text-white/50'}`}>{opacity}%</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
             {activeTab === 'typography' && (
               <div className="space-y-8">
                 {typographyStyles.map((t, i) => (
-                    <div key={i} className={`border-b ${theme.border} pb-6`}>
-                      <div className="grid grid-cols-12 gap-8 items-start">
-                        <div className="col-span-3">
-                          <h3 className={`text-xl font-bold ${theme.text} mb-2`}>{t.label}</h3>
-                          <p className={`text-sm ${theme.textMuted}`}>Pilat {t.wide ? 'Wide ' : ''}{t.weight}</p>
-                          <p className={`text-sm ${theme.textSubtle}`}>{t.size} / {t.line}</p>
-                        </div>
-                        <div className="col-span-9">
-                          <p 
-                            className={`${theme.text} ${t.upper ? 'uppercase tracking-wide' : ''} ${t.wide ? 'tracking-wider' : ''} ${t.underline ? 'underline' : ''}`} 
-                            style={{ 
-                              fontSize: t.size, 
-                              lineHeight: t.line === 'auto' || t.line === '100%' ? 'normal' : t.line, 
-                              fontWeight: t.fontWeight 
-                            }}>
-                            {t.upper ? 'THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.' : t.titleCase ? 'The Quick Brown Fox Jumps Over The Lazy Dog.' : 'The quick brown fox jumps over the lazy dog.'}
-                          </p>
-                          {t.note && <p className={`text-xs ${theme.textFaint} mt-2`}>{t.note}</p>}
-                        </div>
+                  <div key={i} className={`border-b ${theme.border} pb-6`}>
+                    <div className="grid grid-cols-12 gap-8 items-start">
+                      <div className="col-span-3">
+                        <h3 className={`text-xl font-bold ${theme.text} mb-2`}>{t.label}</h3>
+                        <p className={`text-sm ${theme.textMuted}`}>Pilat {t.wide ? 'Wide ' : ''}{t.weight}</p>
+                        <p className={`text-sm ${theme.textSubtle}`}>{t.size} / {t.line}</p>
+                      </div>
+                      <div className="col-span-9">
+                        <p className={`${theme.text} ${t.upper ? 'uppercase tracking-wide' : ''} ${t.wide ? 'tracking-wider' : ''} ${t.underline ? 'underline' : ''}`} style={{ fontSize: t.size, lineHeight: t.line === 'auto' || t.line === '100%' ? 'normal' : t.line, fontWeight: t.fontWeight }}>
+                          {t.upper ? 'THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.' : t.titleCase ? 'The Quick Brown Fox Jumps Over The Lazy Dog.' : 'The quick brown fox jumps over the lazy dog.'}
+                        </p>
+                        {t.note && <p className={`text-xs ${theme.textFaint} mt-2`}>{t.note}</p>}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </Section>
+                  </div>
+                ))}
+              </div>
             )}
           </main>
         </div>
