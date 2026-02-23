@@ -205,7 +205,7 @@
       const tabs = [
         { id: 'brand', label: 'Brand' },
         { id: 'saturated', label: 'Saturated' },
-        { id: 'alpha', label: 'Alpha' },
+        { id: 'alpha', label: 'Tints' },
         { id: 'greys', label: 'Greys' },
         { id: 'typography', label: 'Typography' },
       ];
@@ -255,7 +255,7 @@
           <main className="max-w-7xl mx-auto px-8 py-12">
             {activeTab === 'brand' && (
               <>
-                <Section title="Brand Colors" theme={theme}>
+                <div className="mb-12">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                     <div>
                       <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Creator</h4>
@@ -290,8 +290,8 @@
                       </button>
                     ))}
                   </div>
-                </Section>
-                <Section title="Creator Neon" theme={theme}>
+                </div>
+                <div className="mb-12">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                       <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Shades (darker)</h4>
@@ -320,12 +320,12 @@
                       </div>
                     </div>
                   </div>
-                </Section>
+                </div>
               </>
             )}
 
             {activeTab === 'saturated' && (
-              <Section title="Output Creator Colors" theme={theme}>
+              <div>
                 <p className={`${theme.textMuted} text-sm mb-8`}>Full color scales from light (0) to dark (90). Click any swatch to copy.</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {Object.entries(colorSystem.saturated).map(([name, colors]) => (
@@ -344,11 +344,11 @@
                     </div>
                   ))}
                 </div>
-              </Section>
+              </div>
             )}
 
             {activeTab === 'alpha' && (
-              <Section title="Alpha Colors" theme={theme}>
+              <div>
                 <p className={`${theme.textMuted} text-sm mb-8`}>Colors with transparency from 100% to 10% opacity.</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {Object.entries(colorSystem.saturated).map(([name, colors]) => (
@@ -367,12 +367,12 @@
                     </div>
                   ))}
                 </div>
-              </Section>
+              </div>
             )}
 
             {activeTab === 'greys' && (
               <>
-                <Section title="Greys" theme={theme}>
+                <div className="mb-12">
                   <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Gray Scale</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {colorSystem.greys.map((c, i) => (
@@ -384,8 +384,8 @@
                       </button>
                     ))}
                   </div>
-                </Section>
-                <Section title="Black & White Tints" theme={theme}>
+                </div>
+                <div className="mb-12">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                       <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Black Tints</h4>
@@ -394,8 +394,8 @@
                           <button key={i} onClick={() => navigator.clipboard.writeText(`rgba(0,0,0,${t.opacity/100})`)}
                             className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
                             style={{ backgroundColor: `rgba(0,0,0,${t.opacity/100})`, border: '1px solid rgba(128,128,128,0.1)' }}>
-                            <span className={`text-base font-bold ${t.opacity < 60 ? 'text-white/80' : 'text-black/80'}`}>{t.name}</span>
-                            <span className={`text-base font-mono ${t.opacity < 60 ? 'text-white/50' : 'text-black/50'}`}>{t.opacity}%</span>
+                            <span className="text-base font-bold text-white/80">{t.name}</span>
+                            <span className="text-base font-mono text-white/50">{t.opacity}%</span>
                           </button>
                         ))}
                       </div>
@@ -414,15 +414,13 @@
                       </div>
                     </div>
                   </div>
-                </Section>
+                </div>
               </>
             )}
 
             {activeTab === 'typography' && (
-              <Section title="Pilat - by General Type Studio" theme={theme}>
-                <p className={`${theme.textMuted} mb-12 max-w-2xl`}>Pilat is a constructed grotesque developed with a large range of weight and width variations. Its base structure, commonly called a 'superellipse' or 'Lamé curve', could be described as a circle trapped inside a box. Though the letter-shape predates the 20th century, it is mostly seen as an expression of the post World War II era—a glorifying combination of craft and technology.</p>
-                <div className="space-y-8">
-                  {typographyStyles.map((t, i) => (
+              <div className="space-y-8">
+                {typographyStyles.map((t, i) => (
                     <div key={i} className={`border-b ${theme.border} pb-6`}>
                       <div className="grid grid-cols-12 gap-8 items-start">
                         <div className="col-span-3">
