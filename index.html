@@ -30,7 +30,7 @@
         ],
         output2026: [
           { name: 'Black', hex: '#0D0E0F' },
-          { name: 'Creator Neon', hex: '#E5FF00' },
+          { name: 'Output Neon', hex: '#E5FF00' },
           { name: 'Buttermilk', hex: '#F1E7D1' },
           { name: 'Buttermilk II', hex: '#E5DBC7' },
           { name: 'White', hex: '#FFFFFF' },
@@ -41,28 +41,28 @@
       },
       creatorNeon: {
         shades: [
-          { name: 'Creator Neon 0', hex: '#E5FF00' },
-          { name: 'Creator Neon 10', hex: '#CFE600' },
-          { name: 'Creator Neon 20', hex: '#B8CC00' },
-          { name: 'Creator Neon 30', hex: '#A2B300' },
-          { name: 'Creator Neon 40', hex: '#8B9900' },
-          { name: 'Creator Neon 50', hex: '#758000' },
-          { name: 'Creator Neon 60', hex: '#5E6600' },
-          { name: 'Creator Neon 70', hex: '#484D00' },
-          { name: 'Creator Neon 80', hex: '#313300' },
-          { name: 'Creator Neon 90', hex: '#1B1A00' },
+          { name: 'Output Neon 0', hex: '#E5FF00' },
+          { name: 'Output Neon 10', hex: '#CFE600' },
+          { name: 'Output Neon 20', hex: '#B8CC00' },
+          { name: 'Output Neon 30', hex: '#A2B300' },
+          { name: 'Output Neon 40', hex: '#8B9900' },
+          { name: 'Output Neon 50', hex: '#758000' },
+          { name: 'Output Neon 60', hex: '#5E6600' },
+          { name: 'Output Neon 70', hex: '#484D00' },
+          { name: 'Output Neon 80', hex: '#313300' },
+          { name: 'Output Neon 90', hex: '#1B1A00' },
         ],
         tints: [
-          { name: 'Creator Neon tint 100', hex: '#E5FF00' },
-          { name: 'Creator Neon tint 90', hex: '#E8FF1A' },
-          { name: 'Creator Neon tint 80', hex: '#EAFF33' },
-          { name: 'Creator Neon tint 70', hex: '#EDFF4D' },
-          { name: 'Creator Neon tint 60', hex: '#EFFF66' },
-          { name: 'Creator Neon tint 50', hex: '#F2FF80' },
-          { name: 'Creator Neon tint 40', hex: '#F5FF99' },
-          { name: 'Creator Neon tint 30', hex: '#F7FFB3' },
-          { name: 'Creator Neon tint 20', hex: '#FAFFCC' },
-          { name: 'Creator Neon tint 10', hex: '#FCFFE6' },
+          { name: 'Output Neon tint 100', hex: '#E5FF00' },
+          { name: 'Output Neon tint 90', hex: '#E8FF1A' },
+          { name: 'Output Neon tint 80', hex: '#EAFF33' },
+          { name: 'Output Neon tint 70', hex: '#EDFF4D' },
+          { name: 'Output Neon tint 60', hex: '#EFFF66' },
+          { name: 'Output Neon tint 50', hex: '#F2FF80' },
+          { name: 'Output Neon tint 40', hex: '#F5FF99' },
+          { name: 'Output Neon tint 30', hex: '#F7FFB3' },
+          { name: 'Output Neon tint 20', hex: '#FAFFCC' },
+          { name: 'Output Neon tint 10', hex: '#FCFFE6' },
         ],
       },
       saturated: {
@@ -258,9 +258,9 @@
                 <div className="mb-12">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                     <div>
-                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Creator</h4>
+                      <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Output Neon</h4>
                       <button onClick={() => navigator.clipboard.writeText(colorSystem.brand.creator.hex)}
-                        className="w-48 h-48 rounded-2xl flex flex-col items-start justify-end p-5 hover:scale-[1.02] transition-transform"
+                        className="w-full h-20 rounded-2xl flex items-center justify-between px-5 hover:scale-[1.02] transition-transform"
                         style={{ backgroundColor: colorSystem.brand.creator.hex }}>
                         <span className="text-base font-bold text-black/80">{colorSystem.brand.creator.name}</span>
                         <span className="text-sm font-mono text-black/50">{colorSystem.brand.creator.hex}</span>
@@ -279,7 +279,7 @@
                       </div>
                     </div>
                   </div>
-                  <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Output 2026</h4>
+                  <h4 className={`text-sm font-semibold ${theme.text} opacity-60 mb-4`}>Brand Palette</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 mb-8">
                     {colorSystem.brand.output2026.map((c, i) => (
                       <button key={i} onClick={() => navigator.clipboard.writeText(c.hex)}
